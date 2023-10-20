@@ -1,0 +1,381 @@
+$color-bar: #303446;
+$color-bg: #232634;
+$color-fg: #E78284;
+$corners-radius: 12px;
+
+* {
+  font-family: "CaskaydiaCove Nerd Font Mono";
+  font-weight: 800;
+  padding: 0;
+  margin: 0;
+  text-shadow: none;
+}
+
+.mainbar {
+  background-color: $color-bar;
+  border-radius: $corners-radius;
+}
+.mainbar2 {
+  background-color: $color-bar;
+  border-radius: $corners-radius;
+}
+
+.button-main {
+  border-radius: $corners-radius 0 0 $corners-radius;
+  color: $color-fg;
+  background: $color-bg;
+  font-size: 26px;
+  border-width: 0px;
+  padding:0 14px;
+}
+
+.button-main:hover {
+  background: $color-fg;
+  color: $color-bar;
+}
+
+.workspace-box{
+  background: $color-bg;
+  border-radius: 12px;
+  margin: 4px 8px;
+  padding: 0 4px;
+  
+  .workspace-button {
+    color: $color-bar;
+    background: transparent;
+    font-size: 20px;
+    border-width: 0px;
+    border-radius: 0;
+    padding: 0 2px;
+     
+    &.current{
+      color: $color-fg;
+    }
+    &:hover{
+      color: $color-fg;
+    }
+  }
+}
+
+.time_box-center {
+  margin: 0 8px;
+  padding: 0 8px;
+  color: $color-fg;
+  font-size: 14px;
+}
+
+.time_box:hover {
+  .time_box-center {
+    border-radius: 16px;
+    background-color: $color-bg;
+  }
+}
+
+.round_top {
+  border-radius: 30px 0 0 30px;
+}
+
+.round_center {
+  border-radius: 0;
+}
+
+.round_bottom {
+  border-radius: 0 30px 30px 0;
+}
+
+.round_top,
+.round_center,
+.round_bottom {
+  color: $color-fg;
+  background: transparent;
+  font-size: 20px;
+  border-width: 0px;
+  box-shadow: none;
+  padding: 0 6px;
+}
+
+.round_top:hover,
+.round_center:hover,
+.round_bottom:hover {
+  background-color: $color-fg;
+  color: $color-bg;
+}
+
+
+scale slider {
+  background-image: none;
+  border: none;
+  box-shadow: none;
+}
+
+.tray_progress {
+  border-radius: 0;
+  color: $color-bg;
+  background: transparent;
+  font-size: 10px;
+  border-width: 0px;
+  margin: 0 8px;
+}
+
+.tray_progress trough {
+  all: unset;
+  background-color: $color-bg;
+  border-radius: 30px;
+}
+
+.tray_progress trough highlight {
+  all: unset;
+  color: #000000;
+  background-color: $color-fg;
+  border-radius: 30px;
+}
+
+.tray_icon {
+  border-radius: 0;
+  color: $color-fg;
+  background: transparent;
+  font-size: 26px;
+  border-width: 0px;
+  padding: 0 8px;
+  box-shadow: none;
+}
+
+.performance_button {
+  border-radius: 0;
+  color: $color-fg;
+  background: transparent;
+  font-size: 26px;
+  border-width: 0px;
+  box-shadow: none;
+}
+.battery_bar{
+  color: $color-fg;
+  margin: 0 8px;
+}
+
+.battery_bar trough{
+  background-color: $color-bg;
+  border-radius: 28px;
+  border: none;
+  min-width: 100px;
+  min-height: 18px;
+  margin: 0px;
+}
+
+.battery_bar trough progress{
+  background-color: $color-fg; 
+  border-radius: 28px;
+  border: none;
+  min-height: 18px;
+}
+
+.tray_text{
+  color: $color-bar;
+  font-family: "CaskaydiaCove Nerd Font";
+  font-size: 12px;
+}
+
+.graphs_bar{
+  margin: 0 8px;
+}
+
+
+.hg_background{
+  background: $color-bg;
+  border-radius: 24px;
+  margin: 3px 0;
+  font-size: 10px;
+}
+
+
+.hg_background circular-progress{
+  background: $color-bar;
+  margin: 2px;
+}
+
+.hg_temp_normal{
+  color: white;
+  font-family: "CaskaydiaCove Nerd Font";
+}
+.hg_temp_crit{
+  color: red;
+}
+
+.hg_pch{
+  color: #F095ff;
+}
+.hg_gpu{
+  color: #F095A3;
+}
+.hg_cpu{
+  color: #95B6F6;
+}
+.hg_mem{
+  color: #AFDF9F;
+}
+
+.graphs_progress_text{
+  color: $color-fg;
+  font-size: 11px;
+}
+
+.graphs_progress_icon{
+  color: $color-bg;
+  font-size: 26px;
+}
+
+.button {
+  border-radius: 0;
+  color: $color-fg;
+  background: $color-bg;
+  font-size: 20px;
+  border-width: 0px;
+  padding: 0 8px;
+  box-shadow: none;
+}
+
+
+.button:hover {
+  background: $color-fg;
+  color: $color-bar;
+}
+
+.power {
+  border-radius: 0 $corners-radius $corners-radius 0;
+}
+window {
+  background: transparent;
+}
+calendar {
+  border: none;
+  background: $color-bar;
+  border-radius: 16px;
+  padding: 8px;
+
+  :selected {
+    color: $color-fg;
+  }
+
+  .header {
+    background: $color-bg;
+    color: $color-fg;
+  }
+
+  .highlight {
+    color: $color-fg;
+  }
+}
+
+.color_button {
+  border: none;
+  box-shadow: none;
+  border-radius: 30px;
+}
+
+.media_box {
+  background-color: $color-bg;
+  border-radius: 30px;
+  margin: 2px 0;
+}
+
+.media_info {
+  background-color: $color-bg;
+  border-radius: 30px;
+  margin: 4px 1px;
+
+  & .media_label {
+    padding: 0 8px;
+    color: $color-fg;
+    font-size: 6px;
+  }
+}
+
+.media_progress_bar {
+  border-radius: 0;
+  color: $color-bg;
+  background: transparent;
+  font-size: 10px;
+  border-width: 0px;
+
+  & trough {
+    all: unset;
+    background-color: $color-bg;
+    border-radius: 30px;
+    min-height: 26px;
+
+    & highlight {
+      all: unset;
+      color: #000000;
+      background-color: $color-fg;
+      border-radius: 30px;
+    }
+  }
+}
+
+.label {
+  padding: 0 8px;
+  color: $color-fg;
+  font-size: 8px;
+  margin: 0 8px;
+}
+
+.label_noheat{
+  color: $color-fg;
+  font-family: "CaskaydiaCove Nerd Font";
+}
+
+// Theme bar
+.theme-background{
+  font-size: 10px;
+  background: $color-bar;
+  border-radius: $corners-radius;
+  padding: 16px;
+
+  .theme-title{
+    color: $color-fg;
+    font-size: 26px;
+  }
+
+  .theme-box{
+    background: $color-bg;
+    border-radius: 30px;
+    padding: 6px;
+    font-size: 14px;
+    padding-left: 12px;
+    margin-bottom: 6px;
+  }
+
+  .theme-box-color {
+    border-radius: 30px;
+    border: none;
+    border-width: 0px;
+    overlay{
+      border-radius: 30px;
+      border: none;
+    }
+    colorswatch{
+      border-radius: 30px;
+    }
+  }
+
+  .theme-scale {
+    border-radius: 0;
+    color: $color-bg;
+    background: transparent;
+    font-size: 20px;
+    border-width: 0px;
+  }
+
+  .theme-scale  trough {
+    all: unset;
+    background-color: $color-bar;
+    border-radius: 30px;
+  }
+
+  .theme-scale trough highlight {
+    all: unset;
+    color: #000000;
+    background-color: $color-fg;
+    border-radius: 30px;
+  }
+}

@@ -1,0 +1,230 @@
+(include "./bars/themebar.yuck")
+
+(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
+(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
+(defwidget workspaces []
+    (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
+        (box :class "workspace-box" :space-evenly true
+            (label :text "${workspaces}${current_workspace}" :visible false)
+            (for workspace in workspaces
+                (button :class "workspace-button ${workspace.id == current_workspace ? "current" : ""}" 
+                    :onclick "hyprctl dispatch workspace ${workspace.id}"
+                    "${workspace.windows > 0 ? "":""}"
+                )
+            )
+        )
+    )
+)
+
+(defvar calendar_visible false)
+(defpoll hour :interval "1s" :initial "initial-value" `date +%H:%M`)
+(defwidget time []
+    (eventbox
+        :width 28
+        :class "time_box"
+        :onclick "eww ${calendar_visible?"close":"open"} maincalendar && eww update calendar_visible=${!calendar_visible}"
+        (box :class "time_box-center" :orientation "h" :space-evenly false
+            (label :text "${hour}" :xalign 0.5)
+        )
+    )
+)
+
+(defpoll current-volume :interval "1s" :run-while volum "pamixer --get-volume")
+(defvar volum false)
+(defwidget volume_out []
+    (eventbox 
+        :onhover "eww update volum=true" 
+        :onhoverlost "eww update volum=false"
+        :onscroll "if [ '{}' == 'up' ]; then pamixer -i 5; else pamixer -d 5; fi & eww update current-volume=`pamixer --get-volume` & disown"
+        (box :orientation "h" :space-evenly "false"
+            (revealer :transition "slideleft" :reveal volum :duration "300ms"
+                (overlay
+                    (scale
+                        :class "tray_progress"
+                        :value current-volume
+                        :orientation "h"
+                        :height 20
+                        :width 116
+                        :max 100
+                        :min 0
+                        :onchange "pamixer --set-volume {} & eww update current-volume={}"
+                    )
+                    (label :class "tray_text" :text "" :xalign 0.12)
+                )
+            )
+            (button :class "tray_icon" :onclick "sh -c '(sleep 0.1s; pavucontrol)' & disown" "")
+        )
+    )
+)
+
+(defvar brightness false)
+(defwidget brightness []
+    (eventbox 
+        :onhover "eww update brightness=true" 
+        :onhoverlost "eww update brightness=false"
+        (box :orientation "h" :space-evenly "false"
+            (revealer :transition "slideleft" :reveal brightness :duration "300ms"
+                (overlay 
+                    (scale
+                        :class "tray_progress"
+                        :value 100
+                        :orientation "h"
+                        :height 20
+                        :width 116
+                        :max 100
+                        :min 1
+                        :onchange "brightnessctl s {}%"
+                    )
+                    (label :class "tray_text" :text "󰃟" :xalign 0.11)
+                )
+            )
+            (button :class "tray_icon" "󰃟")
+        )
+    )
+)
+
+(defpoll battery_value :interval "5s" "./scripts/battery --bat")
+(defpoll battery_status :interval "5s" "./scripts/battery --bat-st")
+(defwidget battery []
+    (box :orientation "h" :space-evenly "false"
+        (revealer :transition "slideleft" :reveal {battery_status!='Full' && battery_status!='Not charging'} :duration "300ms"
+            (overlay
+                (progress
+                    :valign "center"
+                    :class "battery_bar" 
+                    :width 100
+                    :value battery_value
+                )
+                (label :class "tray_text" :text "${battery_status=='Charging'?'󱐋':'󰁹'} ${battery_value}%" :xalign 0.2)
+            )
+        )
+    )
+)
+
+(defvar graphs_visible false)
+(defvar graphs_profile_noheat false)
+(defpoll gpu :interval "2s" :run-while graphs_visible "gpustat --json")
+(defpoll sensors :interval "2s" :run-while graphs_visible "sensors -j")
+(defwidget graphs []
+    (box :orientation "h" :space-evenly "false"
+        (revealer :transition "slideleft" :reveal graphs_visible :duration "300ms"
+            (box :class "graphs_bar" :space-evenly true :spacing 8
+                (eventbox :onclick "sh -c '(sleep 0.1s; kitty sensors)' & disown"
+                    (hardware_graph :color "hg_pch" :name "PCH" :temp_crit 65 :temp {sensors.pch_cannonlake-virtual-0.temp1.temp1_input})
+                )
+                (eventbox :onclick "sh -c '(sleep 0.1s; kitty nvtop)' & disown"
+                    (hardware_graph :color "hg_gpu" :name "GPU" :temp_crit 80 :temp {gpu.gpus[0]["temperature.gpu"]} :usage {gpu.gpus[0]["utilization.gpu"]})
+                )
+                (eventbox :onclick "sh -c '(sleep 0.1s; kitty btop)' & disown"
+                    (hardware_graph :color "hg_cpu" :name "CPU" :temp_crit 80 :temp {EWW_TEMPS.CORETEMP_CORE_0} :usage {round(EWW_CPU.avg, 0)})
+                )
+                (eventbox :onclick "sh -c '(sleep 0.1s; kitty btop)' & disown"
+                    (hardware_graph :color "hg_mem" :name "MEM" :usage {round(EWW_RAM.used_mem_perc, 0)})
+                )
+            )
+        )
+        (eventbox
+            :onclick "eww update graphs_visible=${!graphs_visible}" 
+            :onscroll "if [ '{}' == 'up' ]; then eww update graphs_profile_noheat=false; else eww update graphs_profile_noheat=true; fi & sh -c '(sleep 0.1s; cpupower-gui pr ${!graphs_profile_noheat ? "NoHeat":"Balanced"})' & disown"
+            (label :class "tray_icon" :text {graphs_profile_noheat ? "󰡳":"󰡴"})
+        )
+    )
+)
+
+(defwidget hardware_graph [name ?temp ?temp_crit ?usage color]
+    (box :class "hg_background" :orientation "h" :space-evenly true :width 80
+        (label :class {color} :text "${name}" :xalign 1)
+        (label :class {temp<temp_crit?"hg_temp_normal":"hg_temp_crit"} :text "󱃂${round(temp, 0)}" :xalign 0.7)
+        (circular-progress 
+            :class {color}
+            :value {usage}
+            :thickness 3
+            :clockwise true
+            :start-at 25
+            (label :justify "center" :text "${usage}")
+        )
+    )
+)
+
+(defpoll playing :interval "100ms" :run-while {strlength(current_media) > 0}  "playerctl status")
+(deflisten current_media "playerctl metadata --format \"{{ title }}\" -F")
+(defpoll current_media_artist :interval "1000ms" :run-while {playing == "Playing"} "playerctl metadata --format \"{{ artist }}\"")
+(defpoll media_total :interval "1000ms" :run-while {playing == "Playing"} "echo `playerctl metadata --format \"{{ mpris:length }}\"`")
+(defpoll media_current :interval "1000ms" :run-while {playing == "Playing"} "echo `playerctl metadata --format \"{{ position }}\"`")
+(defwidget media []
+    (overlay :class "media_box" :visible {strlength(current_media) > 0}
+        (box :class "media_progress" :width 250 
+            (scale
+                :class "media_progress_bar"
+                :value {100*(media_current/media_total)}
+                :orientation "h"
+                :width 116
+                :max 100
+                :min -11
+                :onchange "playerctl "
+            )
+        )
+        (box :class "media_info" :orientation "h" :space-evenly "false"
+            (button :class "round_top" :onclick "playerctl previous" "󰒮")
+            (button :class "round_center" :onclick "playerctl play-pause" {playing != "Playing"? "" : ""})
+            (button :class "round_center" :onclick "playerctl next" "󰒭")
+            (box :orientation "v" :space-evenly true 
+                (label :class "media_label" :limit-width 32 :width 100 :text current_media_artist :xalign 0 :justify "left")
+                (label :class "media_label" :limit-width 32 :width 100 :text current_media :xalign 0 :justify "left")
+            )
+        )
+    )
+)
+
+(defpoll aguabranca :interval "600000ms" "python ~/Documentos/Projetos/AguaBrancaChecker/abchecker.py")
+(defwidget top []
+    (box :space-evenly false
+        (button :class "button-main" :height "50px" :onclick "pkill rofi || ~/.config/waybar/rofi_launcher.sh" "")
+        (workspaces)
+        (box :width 100)
+        (media)
+        (label :class "label" :text aguabranca :justify "fill")
+    )
+)
+
+(defvar themes_visible false)
+(defwidget bottom []
+    (box :orientation "h" :space-evenly false :halign "end"
+        (graphs)
+        (volume_out)
+        (brightness)
+        (battery)
+        (button :class "button" :height "30px" :onclick "sh -c '(sleep 0.1s; hyprpicker -a)' & disown" "")
+        (button :class "button" :height "30px" :onclick "sh -c '(sleep 0.1s; blueman-manager)' & disown" "")
+        (eventbox :ondropped "~/.config/theme-switcher/theme-switcher.sh {}"
+            (button :class "button" :height "30px" 
+                :onclick "eww ${themes_visible?"close":"open"} maintheme && eww update themes_visible=${!themes_visible}"
+                ;; :onclick "sh -c '(sleep 0.1s; ~/.config/theme-switcher/theme-switcher.sh)' & disown"
+                ""
+            )
+        )
+        (button :class "button power" :height "30px" :onclick "sh -c '(sleep 0.1s; ~/.config/waybar/powermenu.sh)' & disown" "")
+    )
+)
+
+(defwindow mainbar
+    :monitor 0
+    :geometry (geometry :x "8px" :y "8px" :width "1904px" :height "28px" :anchor "top center")
+    :stacking "bg"
+    :exclusive true
+    (centerbox :orientation "h"
+        (top)
+        (time)
+        (bottom)
+    )
+)
+
+(defwindow maincalendar
+    :monitor 0
+    :geometry (geometry :y "8px" :width "300px" :anchor "top center")
+    :stacking "overlay"
+    :exclusive false
+    (eventbox :onhoverlost "eww close maincalendar; eww update calendar_visible=false"  
+        (calendar :show-details true :show-heading true)
+    )
+)

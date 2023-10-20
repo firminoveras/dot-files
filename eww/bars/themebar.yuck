@@ -1,0 +1,45 @@
+(defwindow maintheme
+    :monitor 0
+    :geometry (geometry :y "8px" :width "300px" :anchor "top right")
+    :stacking "overlay"
+    :exclusive false
+    (box :class "theme-background" :orientation "v"
+        (label :class "theme-title" :text "Tema")
+        (theme-colorpicker :text "Light Background")
+        (theme-colorpicker :text "Dark Background")
+        (theme-colorpicker :text "Primary Foreground")
+        (theme-slider :text "Corners")
+        (theme-slider :text "Gaps Size")
+        (theme-slider :text "Border Size")
+    )
+)
+
+
+(defwidget theme-colorpicker [text]
+    (centerbox :class "theme-box" :height 60
+        (label :class "theme-box-label" :text text :xalign 0)
+        (label :text "")
+        (box  :halign "end"
+            (color-button :class "theme-box-color")
+        )
+    )
+)
+
+(defwidget theme-slider [text]
+    (centerbox :class "theme-box"
+        (label :class "theme-box-label" :text text :xalign 0)
+        (label :text "")
+        (box  :halign "end"
+            (scale
+                :class "theme-scale"
+                :value 50
+                :orientation "h"
+                :height 20
+                :width 100
+                :max 100
+                :min 0
+            )
+        )
+    )
+)
+

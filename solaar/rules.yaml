@@ -1,0 +1,9 @@
+%YAML 1.3
+---
+- Key: [Forward Button, pressed]
+- Execute: [hyprctl, dispatch, workspace, '-1']
+...
+---
+- Key: [Back Button, pressed]
+- Execute: [hyprctl, dispatch, workspace, '+1']
+...
