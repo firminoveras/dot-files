@@ -59,9 +59,17 @@ $corners-radius: 12px;
 
 .time_box-center {
   margin: 0 8px;
-  padding: 0 8px;
+  padding: 0 18px;
   color: $color-fg;
   font-size: 14px;
+
+  .time-hour{
+    font-size: 12px;
+  }
+
+  .time-date{
+    font-size: 8px;
+  }
 }
 
 .time_box:hover {

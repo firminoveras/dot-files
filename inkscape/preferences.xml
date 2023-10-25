@@ -118,9 +118,9 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="53.8354660394627"
-         height="85.2010868102545"
-         ry="6.77434050192043" />
+         width="172.802259175521"
+         height="84.8466404715925"
+         ry="6.77434054423155" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -156,8 +156,8 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="23.0954496128356"
-         ry="23.0954496128352" />
+         rx="19.6117627534041"
+         ry="19.6117627534108" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -307,7 +307,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="px"
+       unit="mm"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -334,8 +334,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="-152.513995956332"
-       y="604.171096227208"
+       x="-2839.04464464349"
+       y="293.497336433548"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -579,7 +579,7 @@
        id="toolbox" />
     <group
        id="fillstroke"
-       page="1" />
+       page="2" />
     <group
        id="filtereffects" />
     <group
@@ -606,7 +606,7 @@
     <group
        id="preferences"
        state="1"
-       page="35" />
+       page="24" />
     <group
        id="gradienteditor" />
     <group
@@ -646,7 +646,7 @@
     <group
        id="import"
        enable_preview="1"
-       path="/home/firmino/Downloads/dia do estudante/"
+       path="/home/firmino/Downloads/"
        ask="0"
        ask_svg="1"
        link="embed"
@@ -1064,17 +1064,18 @@
      org.inkscape.effect.filter.InkBlot.vblur="0.345072759789157"
      org.inkscape.effect.filter.InkBlot.displacement="5.13617158952497"
      org.inkscape.effect.filter.InkBlot.blend="2.89650839479814"
-     org.inkscape.input.gdkpixbuf.jpeg.do_not_ask="1" />
+     org.inkscape.input.gdkpixbuf.jpeg.do_not_ask="1"
+     org.inkscape.input.eps.autorotate="None" />
   <group
      id="desktop"
-     style="fill:#ffffff;-inkscape-font-specification:'Bungee, @wght=700';font-family:Bungee;font-size:53.33329391px;text-align:justify;stroke-width:3.02362205;font-variation-settings:'wght' 700;stroke:#000000;stroke-linejoin:round;stroke-linecap:round;paint-order:fill markers stroke">
+     style="fill:#ff91ff;-inkscape-font-specification:Quicksand;font-family:Quicksand;font-size:14.66666667px;text-align:justify;stroke-width:8.69291339;stroke-linejoin:round;stroke-linecap:round;paint-order:fill markers stroke;letter-spacing:0px;stroke:#ffffff">
     <group
-       width="944"
+       width="1900"
        height="1060"
        x="0"
        y="0"
-       maximized="0"
-       fullscreen="0"
+       maximized="1"
+       fullscreen="1"
        id="geometry" />
     <group
        id="XYfront" />
@@ -1203,11 +1204,11 @@
      symbolicIcons="1"
      symbolicDefaultBaseColors="1"
      symbolicDefaultHighColors="0"
-     gtkTheme="Minwaita-Inkscape"
-     fontscale="70"
+     fontscale="80"
      iconTheme="multicolor"
      menuIcons="1"
-     syntax-color-theme="inkscape-dark">
+     syntax-color-theme="inkscape-dark"
+     gtkTheme="Minwaita-Inkscape">
     <group
        id="multicolor"
        symbolicBaseColor="3958107135"

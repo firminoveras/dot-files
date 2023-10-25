@@ -18,13 +18,15 @@
 
 (defvar calendar_visible false)
 (defpoll hour :interval "1s" :initial "initial-value" `date +%H:%M`)
+(defpoll date :interval "60s" :initial "initial-value" `date +%d.%m.%Y`)
 (defwidget time []
     (eventbox
         :width 28
         :class "time_box"
         :onclick "eww ${calendar_visible?"close":"open"} maincalendar && eww update calendar_visible=${!calendar_visible}"
-        (box :class "time_box-center" :orientation "h" :space-evenly false
-            (label :text "${hour}" :xalign 0.5)
+        (box :class "time_box-center" :orientation "v" :space-evenly false :valign "center"
+            (label :class "time-hour" :text "${hour}" :xalign 0.5)
+            (label :class "time-date" :text "${date}" :xalign 0.5)
         )
     )
 )

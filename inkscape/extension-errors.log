@@ -1,9 +1,3 @@
-A Extensão "EPS Input" falhou ao carregar porqueuma dependência não foi encontrada.
-Dependência:
-	tipo: executable
-	localização: caminho
-	frase: ps2pdf
-
 A Extensão "XFIG Input" falhou ao carregar porqueuma dependência não foi encontrada.
 Dependência:
 	tipo: executable
@@ -21,12 +15,6 @@ Dependência:
 	tipo: file
 	localização: inx
 	frase: hpgl_decoder.py
-
-A Extensão "PostScript Input" falhou ao carregar porqueuma dependência não foi encontrada.
-Dependência:
-	tipo: executable
-	localização: caminho
-	frase: ps2pdf
 
 A Extensão "Optimized PNG" falhou ao carregar porqueuma dependência não foi encontrada.
 Dependência:
