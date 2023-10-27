@@ -230,3 +230,14 @@
         (calendar :show-details true :show-heading true)
     )
 )
+
+(defwindow hour_wallpaper
+    :monitor 0
+    :geometry (geometry :x "100px" :y "120px" :height "28px" :anchor "top center")
+    :stacking "bottom"
+    :exclusive false
+    (box :orientation "v" :space-evenly false 
+        (label :class "hour_wallpaper-time" :text "${hour}" :xalign 0.5)
+        (label :class "hour_wallpaper-date" :text "${date}" :xalign 0.5)
+    )
+)

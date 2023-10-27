@@ -118,9 +118,9 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="172.802259175521"
-         height="84.8466404715925"
-         ry="6.77434054423155" />
+         width="255.695570097194"
+         height="27.1930634506105"
+         ry="6.77434050192043" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -156,8 +156,8 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="19.6117627534041"
-         ry="19.6117627534108" />
+         rx="84.0765236681852"
+         ry="84.0765236681852" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -334,8 +334,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="-2839.04464464349"
-       y="293.497336433548"
+       x="-4609.20478866142"
+       y="481.627043149606"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -579,7 +579,7 @@
        id="toolbox" />
     <group
        id="fillstroke"
-       page="2" />
+       page="1" />
     <group
        id="filtereffects" />
     <group
@@ -1068,14 +1068,14 @@
      org.inkscape.input.eps.autorotate="None" />
   <group
      id="desktop"
-     style="fill:#ff91ff;-inkscape-font-specification:Quicksand;font-family:Quicksand;font-size:14.66666667px;text-align:justify;stroke-width:8.69291339;stroke-linejoin:round;stroke-linecap:round;paint-order:fill markers stroke;letter-spacing:0px;stroke:#ffffff">
+     style="fill:#ff5555;-inkscape-font-specification:'Cantarell Ultra-Bold';font-family:Cantarell;font-size:14.66666667px;text-align:justify;stroke-width:8.69291339;stroke-linejoin:round;stroke-linecap:round;paint-order:fill markers stroke;letter-spacing:0px;font-weight:800">
     <group
-       width="1900"
+       width="2540"
        height="1060"
        x="0"
        y="0"
        maximized="1"
-       fullscreen="1"
+       fullscreen="0"
        id="geometry" />
     <group
        id="XYfront" />

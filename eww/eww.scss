@@ -332,6 +332,22 @@ calendar {
   font-family: "CaskaydiaCove Nerd Font";
 }
 
+
+.hour_wallpaper-time{
+  font-family: "Inter";
+  font-size: 200px;
+  font-weight: 700;
+}
+
+.hour_wallpaper-date{
+  font-family: "Inter";
+  font-weight: 100;
+  padding-top: 16px;
+  font-size: 20px;
+  border-top: solid 2px white;
+  margin: 0 200px;
+}
+
 // Theme bar
 .theme-background{
   font-size: 10px;
