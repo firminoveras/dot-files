@@ -1,3 +1,6 @@
-2023/10/24-15:09:21.669 642f Reusing MANIFEST /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
-2023/10/24-15:09:21.669 642f Recovering log #3
-2023/10/24-15:09:21.739 642f Reusing old log /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000003.log 
+2023/10/24-15:36:57.137 80cc Reusing MANIFEST /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
+2023/10/24-15:36:57.137 80cc Recovering log #3
+2023/10/24-15:36:57.182 80cc Reusing old log /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000003.log 
+2023/10/24-16:32:31.266 80cc Level-0 table #5: started
+2023/10/24-16:32:31.311 80cc Level-0 table #5: 1421607 bytes OK
+2023/10/24-16:32:31.313 80cc Delete type=0 #3

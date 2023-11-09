@@ -196,6 +196,7 @@
         (volume_out)
         (brightness)
         (battery)
+        (button :class "button" :height "30px" :onclick "eww open --toggle mainbar; eww open --toggle mainbar_minimized" "󱞽")
         (button :class "button" :height "30px" :onclick "sh -c '(sleep 0.1s; hyprpicker -a)' & disown" "")
         (button :class "button" :height "30px" :onclick "sh -c '(sleep 0.1s; blueman-manager)' & disown" "")
         (eventbox :ondropped "~/.config/theme-switcher/theme-switcher.sh {}"
@@ -233,11 +234,36 @@
 
 (defwindow hour_wallpaper
     :monitor 0
-    :geometry (geometry :x "100px" :y "120px" :height "28px" :anchor "top center")
+    :geometry (geometry :x "100px" :y "220px" :height "28px" :anchor "top center")
     :stacking "bottom"
     :exclusive false
     (box :orientation "v" :space-evenly false 
         (label :class "hour_wallpaper-time" :text "${hour}" :xalign 0.5)
-        (label :class "hour_wallpaper-date" :text "${date}" :xalign 0.5)
+    )
+)
+
+
+(defwidget workspaces_minimized []
+    (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" 
+        :class "workspaces-widget"
+        :onclick "eww open --toggle mainbar; eww open --toggle mainbar_minimized"
+        (box :class "workspace-box-minimized" :space-evenly true
+            (label :text "${workspaces}${current_workspace}" :visible false)
+            (for workspace in workspaces
+                (button :class "workspace-button ${workspace.id == current_workspace ? "current" : ""}" 
+                    :onclick "eww open --toggle mainbar; eww open --toggle mainbar_minimized"
+                    "-"
+                )
+            )
+        )
+    )
+)
+(defwindow mainbar_minimized
+    :monitor 0
+    :geometry (geometry :x "100px" :y "0px" :height "6px" :anchor "top center")
+    :stacking "fg"
+    :exclusive false
+    (box :orientation "v" :space-evenly false 
+        (workspaces_minimized)
     )
 )

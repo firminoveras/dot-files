@@ -15,10 +15,6 @@ $corners-radius: 12px;
   background-color: $color-bar;
   border-radius: $corners-radius;
 }
-.mainbar2 {
-  background-color: $color-bar;
-  border-radius: $corners-radius;
-}
 
 .button-main {
   border-radius: $corners-radius 0 0 $corners-radius;
@@ -332,7 +328,6 @@ calendar {
   font-family: "CaskaydiaCove Nerd Font";
 }
 
-
 .hour_wallpaper-time{
   font-family: "Inter";
   font-size: 200px;
@@ -401,5 +396,30 @@ calendar {
     color: #000000;
     background-color: $color-fg;
     border-radius: 30px;
+  }
+}
+
+
+.mainbar_minimized {
+  background-color: $color-bar;
+  border-radius: 0 0 8px 8px;
+  min-height: 0px;
+}
+.workspace-box-minimized{
+  margin: 0 6px;
+  min-height: 0px;
+
+  .workspace-button {
+    color: $color-bg;
+    background: $color-bg;
+    font-size: 1px;
+    padding: 0 2px;
+    margin: 0 2px;
+    min-width: 0px;
+    min-height: 0px;
+     
+    &.current{
+      background: $color-fg;
+    }
   }
 }
