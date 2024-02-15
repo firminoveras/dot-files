@@ -29,7 +29,7 @@
        state="1" />
     <group
        id="scrollbars"
-       state="1" />
+       state="0" />
   </group>
   <group
      id="fullscreen">
@@ -56,7 +56,7 @@
        state="1" />
     <group
        id="rulers"
-       state="1" />
+       state="0" />
     <group
        id="scrollbars"
        state="1" />
@@ -118,13 +118,14 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="13.1202295258289"
-         height="25.320492842066"
+         width="491.569555087359"
+         height="498.81932055857"
          ry="0" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
-         usecurrent="1">
+         usecurrent="1"
+         persp="perspective11">
         <side
            id="XYfront"
            style="fill:#8686bf;stroke:none;stroke-linejoin:round;"
@@ -156,8 +157,8 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="83.0466058686024"
-         ry="83.0466058686022" />
+         rx="216.349174920029"
+         ry="216.349174920032" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -174,7 +175,7 @@
        style="fill:none;stroke:black;stroke-opacity:1;stroke-linejoin:miter;stroke-linecap:butt;">
       <eventcontext
          id="pencil"
-         tolerance="15.0"
+         tolerance="0"
          selcue="1"
          style="stroke-width:1px;"
          usecurrent="1"
@@ -316,9 +317,9 @@
        font_sample="AaBbCcIiPpQq12369$€¢?.;/()"
        show_sample_in_list="1"
        use_svg2="1"
-       style="fill:black;fill-opacity:1;line-height:1.25;stroke:none;font-family:sans-serif;font-style:normal;font-weight:normal;font-size:40px;"
+       style="line-height:1.25;font-family:sans-serif;font-size:40px;text-anchor:middle;text-align:center"
        selcue="1"
-       align_mode="3" />
+       align_mode="1" />
     <eventcontext
        id="nodes"
        selcue="1"
@@ -334,8 +335,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="-42.4694016377953"
-       y="254.664045354331"
+       x="469.727095662337"
+       y="450.940648818898"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -402,7 +403,8 @@
     <eventcontext
        id="paintbucket"
        style="fill:#a0a0a0;stroke:none;"
-       usecurrent="1" />
+       usecurrent="1"
+       autogap="3" />
     <group
        id="geometric"
        mode="drag" />
@@ -606,7 +608,7 @@
     <group
        id="preferences"
        state="1"
-       page="24" />
+       page="25" />
     <group
        id="gradienteditor" />
     <group
@@ -631,9 +633,9 @@
        default="org.inkscape.output.svg.inkscape"
        append_extension="1"
        enable_preview="1"
-       path="/home/firmino/Documentos"
+       path="/home/firmino/Downloads"
        use_current_dir="1"
-       enable_svgexport="1" />
+       enable_svgexport="0" />
     <group
        id="save_copy"
        default=""
@@ -647,7 +649,7 @@
     <group
        id="import"
        enable_preview="1"
-       path="/home/firmino/Imagens/"
+       path="/home/firmino/Downloads/"
        ask="0"
        ask_svg="1"
        link="embed"
@@ -697,7 +699,11 @@
        id="undo-history" />
     <group
        id="objects"
-       expand_to_layer="1" />
+       expand_to_layer="1"
+       layers_only="0" />
+    <group
+       id="layerProp"
+       addLayerPosition="0" />
   </group>
   <group
      id="printing">
@@ -1003,22 +1009,24 @@
        snap-node-cusp="1"
        snap-node-smooth="1"
        snap-line-midpoint="1"
-       snap-line-tangential="1"
+       snap-line-tangential="0"
        snap-line-perpendicular="1"
        simple-snap-nodes="1"
        snap-alignment="1"
-       snap-alignment-self="0"
+       snap-alignment-self="1"
        snap-distribution="1"
        simple-snap-alignment="1"
        snap-others="1"
        snap-object-midpoint="0"
        snap-rotation-center="0"
-       snap-text-baseline="1"
-       snap-path-mask="1"
-       snap-path-clip="1"
-       snap-page-border="1"
-       snap-grid="1"
-       snap-guide="1" />
+       snap-text-baseline="0"
+       snap-path-mask="0"
+       snap-path-clip="0"
+       snap-page-border="0"
+       snap-grid="0"
+       snap-guide="0"
+       snap-page-margin="0"
+       snap-grid-line="1" />
     <group
        id="commandpalette">
       <group
@@ -1068,10 +1076,25 @@
      org.inkscape.effect.filter.InkBlot.blend="2.89650839479814"
      org.inkscape.input.gdkpixbuf.jpeg.do_not_ask="1"
      org.inkscape.input.eps.autorotate="None"
-     org.inkscape.input.svg.scale="auto" />
+     org.inkscape.input.svg.scale="auto"
+     org.inkscape.template.paper.max="297.0"
+     org.inkscape.template.paper.min="210.0"
+     org.inkscape.template.paper.unit="mm"
+     org.inkscape.template.paper.orientation="land"
+     org.inkscape.template.video.height="4320.0"
+     org.inkscape.template.video.unit="px"
+     org.inkscape.template.video.width="7680.0"
+     org.inkscape.template.social.height="720.0"
+     org.inkscape.template.social.unit="px"
+     org.inkscape.template.social.width="720.0"
+     org.inkscape.template.digital.height="768.0"
+     org.inkscape.template.digital.unit="px"
+     org.inkscape.template.digital.width="1024.0"
+     org.inkscape.template.other.size="512.0"
+     org.inkscape.template.other.unit="px" />
   <group
      id="desktop"
-     style="fill:none;-inkscape-font-specification:'Cantarell Ultra-Bold';font-family:Cantarell;font-size:14.66666667px;text-align:justify;stroke-width:1.88598617;paint-order:fill markers stroke;letter-spacing:0px;font-weight:800;stop-color:#000000;stroke:#3f274c;stroke-linejoin:round;stroke-linecap:round;fill-opacity:0">
+     style="fill:#0a9fd6;-inkscape-font-specification:Bungee;font-family:Bungee;font-size:5.33333333px;paint-order:fill markers stroke;letter-spacing:-0.36px;stop-color:#000000;stroke-linejoin:round;text-anchor:middle;text-align:center;stroke-width:0.75590551;word-spacing:0px;stroke:#ffffff;stroke-dasharray:0.75590552, 0.75590552">
     <group
        width="740"
        height="1060"
@@ -1109,7 +1132,7 @@
        width="32">
       <group
          id="buttons"
-         showPages="0"
+         showPages="1"
          showZoom="0"
          showMeasure="0" />
     </group>
@@ -1198,7 +1221,7 @@
      flattening="0" />
   <group
      id="theme"
-     defaultPreferDarkTheme="0"
+     defaultPreferDarkTheme="1"
      defaultIconTheme="Papirus-Dark"
      defaultGtkTheme="Catppuccin-Frappe-Standard-Maroon-Dark"
      narrowSpinButton="1"

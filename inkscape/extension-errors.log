@@ -10,12 +10,6 @@ Dependência:
 	localização: caminho
 	frase: pdflatex
 
-A Extensão "Plot" falhou ao carregar porqueuma dependência não foi encontrada.
-Dependência:
-	tipo: file
-	localização: inx
-	frase: hpgl_decoder.py
-
 A Extensão "Optimized PNG" falhou ao carregar porqueuma dependência não foi encontrada.
 Dependência:
 	tipo: executable

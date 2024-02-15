@@ -179,6 +179,7 @@
 )
 
 (defpoll aguabranca :interval "600000ms" "python ~/Documentos/Projetos/AguaBrancaChecker/abchecker.py")
+
 (defwidget top []
     (box :space-evenly false
         (button :class "button-main" :height "50px" :onclick "pkill rofi || ~/.config/waybar/rofi_launcher.sh" "")
@@ -234,7 +235,7 @@
 
 (defwindow hour_wallpaper
     :monitor 0
-    :geometry (geometry :x "100px" :y "220px" :height "28px" :anchor "top center")
+    :geometry (geometry :x "28px" :y "200px" :height "28px" :anchor "top right")
     :stacking "bottom"
     :exclusive false
     (box :orientation "v" :space-evenly false 
@@ -258,6 +259,7 @@
         )
     )
 )
+
 (defwindow mainbar_minimized
     :monitor 0
     :geometry (geometry :x "100px" :y "0px" :height "6px" :anchor "top center")
@@ -265,5 +267,27 @@
     :exclusive false
     (box :orientation "v" :space-evenly false 
         (workspaces_minimized)
+    )
+)
+
+
+(defpoll wsl :interval "1s" :initial 0 :run-while {wsl>1} `expr $(eww state | egrep wsl | egrep '[0-9]+' -o) - 1`)
+(defwindow workspace_bar
+    :monitor 0
+    :geometry (geometry :x "100px" :y "0px" :height "6px" :anchor "bottom center")
+    :stacking "fg"
+    :exclusive false
+    (revealer :reveal {wsl>1} :transition "slideup" :duration "300ms"
+        (box :orientation "v" :space-evenly false 
+            (box :class "workspacebar-box" :space-evenly true
+                (label :text "${workspaces}${current_workspace}" :visible false)
+                (for workspace in workspaces
+                    (button :class "workspacebar-button ${workspace.id == current_workspace ? "current" : ""}" 
+                        :onclick "hyprctl dispatch workspace ${workspace.id}"
+                        "${workspace.windows > 0 ? "":""}"
+                    )
+                )
+            )
+        )
     )
 )

@@ -22,7 +22,7 @@ $corners-radius: 12px;
   background: $color-bg;
   font-size: 26px;
   border-width: 0px;
-  padding:0 14px;
+  padding: 0 14px;
 }
 
 .button-main:hover {
@@ -30,12 +30,12 @@ $corners-radius: 12px;
   color: $color-bar;
 }
 
-.workspace-box{
+.workspace-box {
   background: $color-bg;
   border-radius: 12px;
   margin: 4px 8px;
   padding: 0 4px;
-  
+
   .workspace-button {
     color: $color-bar;
     background: transparent;
@@ -43,11 +43,12 @@ $corners-radius: 12px;
     border-width: 0px;
     border-radius: 0;
     padding: 0 2px;
-     
-    &.current{
+
+    &.current {
       color: $color-fg;
     }
-    &:hover{
+
+    &:hover {
       color: $color-fg;
     }
   }
@@ -59,11 +60,11 @@ $corners-radius: 12px;
   color: $color-fg;
   font-size: 14px;
 
-  .time-hour{
+  .time-hour {
     font-size: 12px;
   }
 
-  .time-date{
+  .time-date {
     font-size: 8px;
   }
 }
@@ -152,12 +153,13 @@ scale slider {
   border-width: 0px;
   box-shadow: none;
 }
-.battery_bar{
+
+.battery_bar {
   color: $color-fg;
   margin: 0 8px;
 }
 
-.battery_bar trough{
+.battery_bar trough {
   background-color: $color-bg;
   border-radius: 28px;
   border: none;
@@ -166,25 +168,25 @@ scale slider {
   margin: 0px;
 }
 
-.battery_bar trough progress{
-  background-color: $color-fg; 
+.battery_bar trough progress {
+  background-color: $color-fg;
   border-radius: 28px;
   border: none;
   min-height: 18px;
 }
 
-.tray_text{
+.tray_text {
   color: $color-bar;
   font-family: "CaskaydiaCove Nerd Font";
   font-size: 12px;
 }
 
-.graphs_bar{
+.graphs_bar {
   margin: 0 8px;
 }
 
 
-.hg_background{
+.hg_background {
   background: $color-bg;
   border-radius: 24px;
   margin: 3px 0;
@@ -192,38 +194,42 @@ scale slider {
 }
 
 
-.hg_background circular-progress{
+.hg_background circular-progress {
   background: $color-bar;
   margin: 2px;
 }
 
-.hg_temp_normal{
+.hg_temp_normal {
   color: white;
   font-family: "CaskaydiaCove Nerd Font";
 }
-.hg_temp_crit{
+
+.hg_temp_crit {
   color: red;
 }
 
-.hg_pch{
+.hg_pch {
   color: #F095ff;
 }
-.hg_gpu{
+
+.hg_gpu {
   color: #F095A3;
 }
-.hg_cpu{
+
+.hg_cpu {
   color: #95B6F6;
 }
-.hg_mem{
+
+.hg_mem {
   color: #AFDF9F;
 }
 
-.graphs_progress_text{
+.graphs_progress_text {
   color: $color-fg;
   font-size: 11px;
 }
 
-.graphs_progress_icon{
+.graphs_progress_icon {
   color: $color-bg;
   font-size: 26px;
 }
@@ -247,9 +253,11 @@ scale slider {
 .power {
   border-radius: 0 $corners-radius $corners-radius 0;
 }
+
 window {
   background: transparent;
 }
+
 calendar {
   border: none;
   background: $color-bar;
@@ -323,18 +331,18 @@ calendar {
   margin: 0 8px;
 }
 
-.label_noheat{
+.label_noheat {
   color: $color-fg;
   font-family: "CaskaydiaCove Nerd Font";
 }
 
-.hour_wallpaper-time{
+.hour_wallpaper-time {
   font-family: "Inter";
   font-size: 200px;
   font-weight: 700;
 }
 
-.hour_wallpaper-date{
+.hour_wallpaper-date {
   font-family: "Inter";
   font-weight: 100;
   padding-top: 16px;
@@ -344,18 +352,18 @@ calendar {
 }
 
 // Theme bar
-.theme-background{
+.theme-background {
   font-size: 10px;
   background: $color-bar;
   border-radius: $corners-radius;
   padding: 16px;
 
-  .theme-title{
+  .theme-title {
     color: $color-fg;
     font-size: 26px;
   }
 
-  .theme-box{
+  .theme-box {
     background: $color-bg;
     border-radius: 30px;
     padding: 6px;
@@ -368,11 +376,13 @@ calendar {
     border-radius: 30px;
     border: none;
     border-width: 0px;
-    overlay{
+
+    overlay {
       border-radius: 30px;
       border: none;
     }
-    colorswatch{
+
+    colorswatch {
       border-radius: 30px;
     }
   }
@@ -385,7 +395,7 @@ calendar {
     border-width: 0px;
   }
 
-  .theme-scale  trough {
+  .theme-scale trough {
     all: unset;
     background-color: $color-bar;
     border-radius: 30px;
@@ -405,7 +415,8 @@ calendar {
   border-radius: 0 0 8px 8px;
   min-height: 0px;
 }
-.workspace-box-minimized{
+
+.workspace-box-minimized {
   margin: 0 6px;
   min-height: 0px;
 
@@ -417,9 +428,34 @@ calendar {
     margin: 0 2px;
     min-width: 0px;
     min-height: 0px;
-     
-    &.current{
+
+    &.current {
       background: $color-fg;
+    }
+  }
+}
+
+
+.workspacebar-box {
+  background: $color-bg;
+  border-radius: 12px;
+  margin: 16px;
+  padding: 0 4px;
+
+  .workspacebar-button {
+    color: $color-bar;
+    background: transparent;
+    font-size: 20px;
+    border-width: 0px;
+    border-radius: 0;
+    padding: 0 2px;
+
+    &.current {
+      color: $color-fg;
+    }
+
+    &:hover {
+      color: $color-fg;
     }
   }
 }
