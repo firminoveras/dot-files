@@ -1,293 +1,297 @@
-(include "./bars/themebar.yuck")
+;; CAL VARS
+(defpoll calendar_day :interval "10h" "date '+%d'")
+(defpoll calendar_year :interval "10h" "date '+%Y'")
+(defpoll calendar_date :interval "12h" "date '+%A, %d %B'")
+(defpoll today :interval "12h" "date '+%a, %d %B'")
+(defpoll time :interval "5s" "date '+%H:%M'")
 
-(deflisten workspaces :initial "[]" "bash ~/.config/eww/scripts/get-workspaces")
-(deflisten current_workspace :initial "1" "bash ~/.config/eww/scripts/get-active-workspace")
-(defwidget workspaces []
-    (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" :class "workspaces-widget"
-        (box :class "workspace-box" :space-evenly true
-            (label :text "${workspaces}${current_workspace}" :visible false)
-            (for workspace in workspaces
-                (button :class "workspace-button ${workspace.id == current_workspace ? "current" : ""}" 
-                    :onclick "hyprctl dispatch workspace ${workspace.id}"
-                    "${workspace.windows > 0 ? "":""}"
+;; ENV VARS
+;;(defpoll wm :interval "12h" "echo $XDG_CURRENT_DESKTOP")
+(defpoll wm :initial "..." :interval "12h" "$HOME/.config/scripts/display.sh &") 
+(defpoll shell :interval "1h" "echo $SHELL | awk -F'/' '{print $NF}'")
+(defpoll term :interval "1h" "echo $TERM | awk -F'-' '{print $NF}'")
+(defpoll uptime :interval "1m" "uptime -p | sed -e 's/up //;s/ hours,/h/;s/ minutes/m/;s/ [0-9]\+m//'")
+(defpoll packages :interval "15m" "pacman -Q | wc -l")
+(defpoll updates_poll :initial "..." :interval "10m" "$HOME/.config/scripts/updates.sh &") 
+;; WEATHER VARS
+(defpoll weather_temp :interval "1h" :initial "0"
+	"$HOME/.config/scripts/Weather.sh current_temp")
+(defpoll weather_desc :interval "1h"
+	"$HOME/.config/scripts/Weather.sh weather_desc")
+(defpoll weather_feels_like :interval "3h"
+	"$HOME/.config/scripts/Weather.sh feels_like")
+(defpoll weather_humidity :interval "3h"
+	"$HOME/.config/scripts/Weather.sh humidity")
+(defpoll weather_icon :interval "3h"
+	"$HOME/.config/scripts/Weather.sh icon")
+(defpoll weather_wind :interval "3h"
+	"$HOME/.config/scripts/Weather.sh wind")
+
+(defpoll memory :interval "15s"
+    "$HOME/.config/scripts/memory")
+(defpoll cpu :interval "17s"
+    "$HOME/.config/scripts/cpu")
+(defpoll disk :interval "30s"
+    "$HOME/.config/scripts/disk")
+(defpoll tempe :interval "3s"
+    "$HOME/.config/scripts/tempe")
+(defpoll temp :initial 30 :interval "10s" `sensors | rg temp1 | rg -o "\\d+.\\d+" | head -1`)
+
+(defpoll IP_ADDR :interval "24h" "ip -br address | grep UP | awk '{ print $3 }'")
+
+
+(deflisten window :initial "..." "$HOME/.config/scripts/window-title.sh")
+
+;; Widgets
+
+(defwidget dash []
+    (box :class "dash" :orientation "h")
+)
+
+(defwidget cal[]
+    (box :class "cal-container" :orientation "v" :space-evenly "false" :halign "center"
+        (box  :class "cal-box" :orientation "v" :space-evenly "false"
+            (label :class "clock" :text time)
+            (label :class "date" :text today)
+        )   
+        (box :class "cal-window" :orientation "h"
+            (calendar :class "day-names" :day calendar_day :orientation "v"
+                      :class "month-year" :year calendar_year)
+        )
+    )
+)
+
+(defwidget info []
+    (box :class "info-box-outer" :orientation "h" :space-evenly false :halign "center"
+        (box :class "info-box-top" :orientation "v" :space-evenly false
+            (box :class "info-box-inner" :orientation "h" :space-evenly false
+                (box :class "info-box-left" :orientation "v" :space-evenly false
+                    (label :class "info-icon" :text " :")
+                    (label :class "info-icon" :text " :")
+                    (label :class "info-icon" :text " :")
+                    (label :class "info-icon" :text " :")
+                )
+                (box :class "info-box-right" :orientation "v" :space-evenly false
+                    (label :class "info-text" :halign "start" :text "${wm}")
+                    (label :class "info-text" :halign "start" :text "${shell}")
+                    (label :class "info-text" :halign "start" :text "${uptime}")
+                    (label :class "info-text" :halign "start" :text "${updates_poll} packages")
                 )
             )
         )
     )
 )
 
-(defvar calendar_visible false)
-(defpoll hour :interval "1s" :initial "initial-value" `date +%H:%M`)
-(defpoll date :interval "60s" :initial "initial-value" `date +%d.%m.%Y`)
-(defwidget time []
-    (eventbox
-        :width 28
-        :class "time_box"
-        :onclick "eww ${calendar_visible?"close":"open"} maincalendar && eww update calendar_visible=${!calendar_visible}"
-        (box :class "time_box-center" :orientation "v" :space-evenly false :valign "center"
-            (label :class "time-hour" :text "${hour}" :xalign 0.5)
-            (label :class "time-date" :text "${date}" :xalign 0.5)
+(defwidget window-title []
+    (box
+        (label :class "window-title"
+        :halign "center" 
+        :limit-width 16
+        :justify "center"
+        :text "${window}")
+    )
+)
+
+(defwidget weather []
+    (box :class "weather-container" :orientation "v" :space-evenly "false" :halign "center"
+        (box :class "weather-box" :orientation "h" :space-evenly "false" :halign "center" :spacing 10
+            (label :class "weather-icon" :text {weather_icon != "" ? "${weather_icon}" : ""})
+            (label :class "weather-temp" :text "${weather_temp}°C")
+        )
+        (box :class "weather-window" :orientation "v" :space-evenly "false" :spacing 2
+            (label :class "weather-feel" :text "${weather_desc}"
+                                        :limit-width 32
+                                        :justify "center"
+                                        :wrap "true")
+            (label :class "weather-desc" :text "Feels Like: ${weather_feels_like}°C")
+            (label :class "weather-desc" :halign "center" :text " ${weather_wind} km/h")
+            (label :class "weather-desc" :halign "center" :text "  ${weather_humidity} %")
         )
     )
 )
 
-(defpoll current-volume :interval "1s" :run-while volum "pamixer --get-volume")
-(defvar volum false)
-(defwidget volume_out []
-    (eventbox 
-        :onhover "eww update volum=true" 
-        :onhoverlost "eww update volum=false"
-        :onscroll "if [ '{}' == 'up' ]; then pamixer -i 5; else pamixer -d 5; fi & eww update current-volume=`pamixer --get-volume` & disown"
-        (box :orientation "h" :space-evenly "false"
-            (revealer :transition "slideleft" :reveal volum :duration "300ms"
-                (overlay
-                    (scale
-                        :class "tray_progress"
-                        :value current-volume
-                        :orientation "h"
-                        :height 20
-                        :width 116
-                        :max 100
-                        :min 0
-                        :onchange "pamixer --set-volume {} & eww update current-volume={}"
-                    )
-                    (label :class "tray_text" :text "" :xalign 0.12)
-                )
+
+(defwidget network [] 
+	(box :class "network-label" :orientation "h" :space-evenly "false" :spacing 10 :halign "center"
+        (label :text "${IP_ADDR}")
+    )
+)
+
+(defwidget network-up [] 
+	(box :class "network" :orientation "h" :space-evenly "false" :spacing 10 :halign "center"
+        (box :orientation "h" :class "network-box" 
+            (label :text "" :class "network-up")
+        )
+        (box :orientation "h" :width 130 
+            (graph  :class "network-graph-up"
+                    :thickness 2
+                    :value {round(EWW_NET.enp4s0.NET_UP / 1024 ,1)}
+                    :time-range "2m"
+                    :min 0
+                    :max 101
+                    :dynamic "true"
+                    :line-style "round"
             )
-            (button :class "tray_icon" :onclick "sh -c '(sleep 0.1s; pavucontrol)' & disown" "")
-        )
+	    )
     )
 )
-
-(defvar brightness false)
-(defwidget brightness []
-    (eventbox 
-        :onhover "eww update brightness=true" 
-        :onhoverlost "eww update brightness=false"
-        (box :orientation "h" :space-evenly "false"
-            (revealer :transition "slideleft" :reveal brightness :duration "300ms"
-                (overlay 
-                    (scale
-                        :class "tray_progress"
-                        :value 100
-                        :orientation "h"
-                        :height 20
-                        :width 116
-                        :max 100
-                        :min 1
-                        :onchange "brightnessctl s {}%"
-                    )
-                    (label :class "tray_text" :text "󰃟" :xalign 0.11)
-                )
+(defwidget network-down [] 
+	(box :class "network" :orientation "h" :space-evenly "false" :spacing 10 :halign "center"
+        (box :orientation "h" :class "network-box" 
+            (label :text "" :width 10 :class "network-down")
+        )
+        (box :orientation "h" :width 130
+            (graph  :class "network-graph-down"
+                    :thickness 2
+                    :value {round(EWW_NET.enp4s0.NET_DOWN / 1024 ,1)}
+                    :time-range "2m"
+                    :min 0
+                    :max 101
+                    :dynamic "true"
+                    :line-style "round"
             )
-            (button :class "tray_icon" "󰃟")
+	    )
+    )
+)
+
+(defwidget system []
+    (box :class "sys_win" :orientation "h" :space-evenly "true" :hexpand "false" :vexpand "false" 
+        (box :class "sys_cpu_box" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false"
+            (circular-progress 
+                    :value cpu
+                    :class "sys_cpu"
+                    :thickness 8
+                (label :text ""
+                    :class "sys_icon_cpu"
+                    :limit-width 4
+                    :show_truncated false
+                    :wrap false))
+            (label :class "cpu_perc" :halign "center" :text "${cpu}%")
+        )
+        (box :class "sys_mem_box" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false"
+            (circular-progress 
+                    :value memory
+                    :class "sys_mem"
+                    :thickness 8
+              (label :text ""
+                    :class "sys_icon_mem"
+                    :limit-width 4
+                    :show_truncated false
+                    :wrap false
+                    :angle 0.0))
+            (label :class "mem_perc" :halign "center" :text "${memory}%")
         )
     )
 )
 
-(defpoll battery_value :interval "5s" "./scripts/battery --bat")
-(defpoll battery_status :interval "5s" "./scripts/battery --bat-st")
-(defwidget battery []
-    (box :orientation "h" :space-evenly "false"
-        (revealer :transition "slideleft" :reveal {battery_status!='Full' && battery_status!='Not charging'} :duration "300ms"
-            (overlay
-                (progress
-                    :valign "center"
-                    :class "battery_bar" 
-                    :width 100
-                    :value battery_value
-                )
-                (label :class "tray_text" :text "${battery_status=='Charging'?'󱐋':'󰁹'} ${battery_value}%" :xalign 0.2)
-            )
+(defwidget disktemp []
+    (box :class "disk_temp" :orientation "h" :space-evenly "true" :hexpand "false" :vexpand "false" 
+        (box :class "sys_disk_box" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false"
+          (circular-progress
+                  :value disk
+                  :class "sys_disk"
+                  :thickness 8
+              (label :text ""
+                    :class "sys_icon_disk"
+                    :limit-width 4
+                    :show_truncated false
+                    :wrap false))
+            (label :class "disk_perc" :halign "center" :text "${disk}%")
+        )        
+      (box :class "sys_tempe_box" :orientation "v" :space-evenly "false" :hexpand "false" :vexpand "false"
+            (circular-progress 
+                    :value tempe
+                    :class "sys_tempe"
+                    :thickness 8
+              (label :text ""
+                    :class "sys_icon_tempe"
+                    :limit-width 4
+                    :show_truncated false
+                    :wrap false
+                    :angle 0.0))
+            (label :class "tempe_perc" :halign "center" :text "${tempe}C")
+        )  
+    )
+)
+
+
+
+(defwidget apps []
+    (box :class "app-container" :orientation "v" :space-evenly "true" :hexpand "false" :vexpand "false" :halign "center"
+    (label :text "Apps" :class "app-label")
+        (box :class "app-box" :orientation "h" :space-evenly "false" :hexpand "false" :vexpand "false" :spacing 10
+            (button :class "app-firefox" 
+			    :onclick "alacritty -e zsh 2> /dev/null" "")
+	        (button :class "app-files" 
+			    :onclick "thunar 2> /dev/null" "")
+            (button :class "app-code" 
+			    :onclick "wofi -n --show drun -k 2> /dev/null" "")
+            (button :class "app-steam"
+                :onclick "foot 2> /dev/null" "")
         )
     )
 )
 
-(defvar graphs_visible false)
-(defvar graphs_profile_noheat false)
-(defpoll gpu :interval "2s" :run-while graphs_visible "gpustat --json")
-(defpoll sensors :interval "2s" :run-while graphs_visible "sensors -j")
-(defwidget graphs []
-    (box :orientation "h" :space-evenly "false"
-        (revealer :transition "slideleft" :reveal graphs_visible :duration "300ms"
-            (box :class "graphs_bar" :space-evenly true :spacing 8
-                (eventbox :onclick "sh -c '(sleep 0.1s; kitty sensors)' & disown"
-                    (hardware_graph :color "hg_pch" :name "PCH" :temp_crit 65 :temp {sensors.pch_cannonlake-virtual-0.temp1.temp1_input})
-                )
-                (eventbox :onclick "sh -c '(sleep 0.1s; kitty nvtop)' & disown"
-                    (hardware_graph :color "hg_gpu" :name "GPU" :temp_crit 80 :temp {gpu.gpus[0]["temperature.gpu"]} :usage {gpu.gpus[0]["utilization.gpu"]})
-                )
-                (eventbox :onclick "sh -c '(sleep 0.1s; kitty btop)' & disown"
-                    (hardware_graph :color "hg_cpu" :name "CPU" :temp_crit 80 :temp {EWW_TEMPS.CORETEMP_CORE_0} :usage {round(EWW_CPU.avg, 0)})
-                )
-                (eventbox :onclick "sh -c '(sleep 0.1s; kitty btop)' & disown"
-                    (hardware_graph :color "hg_mem" :name "MEM" :usage {round(EWW_RAM.used_mem_perc, 0)})
-                )
-            )
-        )
-        (eventbox
-            :onclick "eww update graphs_visible=${!graphs_visible}" 
-            :onscroll "if [ '{}' == 'up' ]; then eww update graphs_profile_noheat=false; else eww update graphs_profile_noheat=true; fi & sh -c '(sleep 0.1s; cpupower-gui pr ${!graphs_profile_noheat ? "NoHeat":"Balanced"})' & disown"
-            (label :class "tray_icon" :text {graphs_profile_noheat ? "󰡳":"󰡴"})
-        )
-    )
-)
-
-(defwidget hardware_graph [name ?temp ?temp_crit ?usage color]
-    (box :class "hg_background" :orientation "h" :space-evenly true :width 80
-        (label :class {color} :text "${name}" :xalign 1)
-        (label :class {temp<temp_crit?"hg_temp_normal":"hg_temp_crit"} :text "󱃂${round(temp, 0)}" :xalign 0.7)
-        (circular-progress 
-            :class {color}
-            :value {usage}
-            :thickness 3
-            :clockwise true
-            :start-at 25
-            (label :justify "center" :text "${usage}")
-        )
-    )
-)
-
-(defpoll playing :interval "100ms" :run-while {strlength(current_media) > 0}  "playerctl status")
-(deflisten current_media "playerctl metadata --format \"{{ title }}\" -F")
-(defpoll current_media_artist :interval "1000ms" :run-while {playing == "Playing"} "playerctl metadata --format \"{{ artist }}\"")
-(defpoll media_total :interval "1000ms" :run-while {playing == "Playing"} "echo `playerctl metadata --format \"{{ mpris:length }}\"`")
-(defpoll media_current :interval "1000ms" :run-while {playing == "Playing"} "echo `playerctl metadata --format \"{{ position }}\"`")
-(defwidget media []
-    (overlay :class "media_box" :visible {strlength(current_media) > 0}
-        (box :class "media_progress" :width 250 
-            (scale
-                :class "media_progress_bar"
-                :value {100*(media_current/media_total)}
-                :orientation "h"
-                :width 116
-                :max 100
-                :min -11
-                :onchange "playerctl "
-            )
-        )
-        (box :class "media_info" :orientation "h" :space-evenly "false"
-            (button :class "round_top" :onclick "playerctl previous" "󰒮")
-            (button :class "round_center" :onclick "playerctl play-pause" {playing != "Playing"? "" : ""})
-            (button :class "round_center" :onclick "playerctl next" "󰒭")
-            (box :orientation "v" :space-evenly true 
-                (label :class "media_label" :limit-width 32 :width 100 :text current_media_artist :xalign 0 :justify "left")
-                (label :class "media_label" :limit-width 32 :width 100 :text current_media :xalign 0 :justify "left")
-            )
-        )
-    )
-)
-
-(defpoll aguabranca :interval "600000ms" "python ~/Documentos/Projetos/AguaBrancaChecker/abchecker.py")
-
-(defwidget top []
-    (box :space-evenly false
-        (button :class "button-main" :height "50px" :onclick "pkill rofi || ~/.config/waybar/rofi_launcher.sh" "")
-        (workspaces)
-        (box :width 100)
-        (media)
-        (label :class "label" :text aguabranca :justify "fill")
-    )
-)
-
-(defvar themes_visible false)
-(defwidget bottom []
-    (box :orientation "h" :space-evenly false :halign "end"
-        (graphs)
-        (volume_out)
-        (brightness)
-        (battery)
-        (button :class "button" :height "30px" :onclick "eww open --toggle mainbar; eww open --toggle mainbar_minimized" "󱞽")
-        (button :class "button" :height "30px" :onclick "sh -c '(sleep 0.1s; hyprpicker -a)' & disown" "")
-        (button :class "button" :height "30px" :onclick "sh -c '(sleep 0.1s; blueman-manager)' & disown" "")
-        (eventbox :ondropped "~/.config/theme-switcher/theme-switcher.sh {}"
-            (button :class "button" :height "30px" 
-                :onclick "eww ${themes_visible?"close":"open"} maintheme && eww update themes_visible=${!themes_visible}"
-                ;; :onclick "sh -c '(sleep 0.1s; ~/.config/theme-switcher/theme-switcher.sh)' & disown"
-                ""
+;; Functions
+(defwidget functions []
+    (box :class "function-container" :orientation "v" :space-evenly "true" :hexpand "false" :vexpand "false" :halign "center"
+    (label :text "Functions" :class "function-label")
+        (box :class "function-box" :orientation "h" :space-evenly "false" :hexpand "false" :vexpand "false" :spacing 10
+            (button :class "screenshot"
+                :onclick "bash $HOME/.config/scripts/screenshot.sh 2> /dev/null"
+                :tooltip "Screenshot"
+            (label :text "" :class "tooltip"))
+            (button :class "wallpaper"
+                :onclick "bash $HOME/.config/scripts/wallpaper.sh 2> /dev/null"
+                :tooltip "Wallpaper"
+            (label :text "" :class "tooltip"))
+            (button :class "keybind"
+                :onclick "$HOME/.config/scripts/hyprland"
+                :tooltip "Hyprland.conf"
+            (label :text "" :class "tooltip"))
+            (button :class "logout"
+                :onclick "bash $HOME/.config/scripts/logout.sh"
+                :tooltip "Logout"
+            (label :text "" :class "tooltip")
             )
         )
-        (button :class "button power" :height "30px" :onclick "sh -c '(sleep 0.1s; ~/.config/waybar/powermenu.sh)' & disown" "")
     )
 )
 
-(defwindow mainbar
+(defwidget right []
+    (box :class "right" :orientation "v" :space-evenly "false"
+        (cal)
+        (dash)
+        (window-title)
+        (dash)
+        (info)
+        (dash)
+        (apps)
+        (dash)
+        (weather)
+        (dash)
+        (network)
+        (network-up)
+        (network-down)
+        (dash)
+        (disktemp)
+        (system)
+	(dash)
+	(functions)
+    )
+)
+
+(defwindow sidebar
     :monitor 0
-    :geometry (geometry :x "8px" :y "8px" :width "1904px" :height "28px" :anchor "top center")
-    :stacking "bg"
+    :geometry (geometry :x "16px"
+                        :y "10px"
+                        :width "140px"
+                        :height "60%"
+                        :anchor "top left")
+    :stacking "fg"
+    :windowtype "dock"
     :exclusive true
-    (centerbox :orientation "h"
-        (top)
-        (time)
-        (bottom)
-    )
-)
-
-(defwindow maincalendar
-    :monitor 0
-    :geometry (geometry :y "8px" :width "300px" :anchor "top center")
-    :stacking "overlay"
-    :exclusive false
-    (eventbox :onhoverlost "eww close maincalendar; eww update calendar_visible=false"  
-        (calendar :show-details true :show-heading true)
-    )
-)
-
-(defwindow hour_wallpaper
-    :monitor 0
-    :geometry (geometry :x "28px" :y "200px" :height "28px" :anchor "top right")
-    :stacking "bottom"
-    :exclusive false
-    (box :orientation "v" :space-evenly false 
-        (label :class "hour_wallpaper-time" :text "${hour}" :xalign 0.5)
-    )
-)
-
-
-(defwidget workspaces_minimized []
-    (eventbox :onscroll "bash ~/.config/eww/scripts/change-active-workspace {} ${current_workspace}" 
-        :class "workspaces-widget"
-        :onclick "eww open --toggle mainbar; eww open --toggle mainbar_minimized"
-        (box :class "workspace-box-minimized" :space-evenly true
-            (label :text "${workspaces}${current_workspace}" :visible false)
-            (for workspace in workspaces
-                (button :class "workspace-button ${workspace.id == current_workspace ? "current" : ""}" 
-                    :onclick "eww open --toggle mainbar; eww open --toggle mainbar_minimized"
-                    "-"
-                )
-            )
-        )
-    )
-)
-
-(defwindow mainbar_minimized
-    :monitor 0
-    :geometry (geometry :x "100px" :y "0px" :height "6px" :anchor "top center")
-    :stacking "fg"
-    :exclusive false
-    (box :orientation "v" :space-evenly false 
-        (workspaces_minimized)
-    )
-)
-
-
-(defpoll wsl :interval "1s" :initial 0 :run-while {wsl>1} `expr $(eww state | egrep wsl | egrep '[0-9]+' -o) - 1`)
-(defwindow workspace_bar
-    :monitor 0
-    :geometry (geometry :x "100px" :y "0px" :height "6px" :anchor "bottom center")
-    :stacking "fg"
-    :exclusive false
-    (revealer :reveal {wsl>1} :transition "slideup" :duration "300ms"
-        (box :orientation "v" :space-evenly false 
-            (box :class "workspacebar-box" :space-evenly true
-                (label :text "${workspaces}${current_workspace}" :visible false)
-                (for workspace in workspaces
-                    (button :class "workspacebar-button ${workspace.id == current_workspace ? "current" : ""}" 
-                        :onclick "hyprctl dispatch workspace ${workspace.id}"
-                        "${workspace.windows > 0 ? "":""}"
-                    )
-                )
-            )
-        )
+        (box :class "main-container"
+        (right)
     )
 )

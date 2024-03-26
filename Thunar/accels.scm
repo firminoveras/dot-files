@@ -1,4 +1,4 @@
-; Thunar GtkAccelMap rc-file         -*- scheme -*-
+; thunar GtkAccelMap rc-file         -*- scheme -*-
 ; this file is an automated accelerator map dump
 ;
 ; (gtk_accel_path "<Actions>/ThunarStandardView/sort-by-mtime" "")
@@ -53,12 +53,12 @@
 ; (gtk_accel_path "<Actions>/ThunarWindow/cancel-search" "Escape")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/select-by-pattern" "<Primary>s")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/rename" "F2")
+; (gtk_accel_path "<Actions>/ThunarStandardView/configure-columns" "")
 ; (gtk_accel_path "<Actions>/ThunarStandardView/create-document" "")
 ; (gtk_accel_path "<Actions>/ThunarShortcutsPane/sendto-shortcuts" "<Primary>d")
 ; (gtk_accel_path "<Actions>/ThunarActionManager/move-to-trash" "")
 ; (gtk_accel_path "<Actions>/ThunarWindow/close-tab" "<Primary>w")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-side-pane-tree" "<Primary>e")
-; (gtk_accel_path "<Actions>/ThunarBookmarks/41bafe749a7076a181d05f24245952fd" "")
 ; (gtk_accel_path "<Actions>/ThunarActionManager/open" "<Primary>o")
 ; (gtk_accel_path "<Actions>/ThunarWindow/toggle-side-pane" "F9")
 ; (gtk_accel_path "<Actions>/ThunarWindow/view-location-selector-entry" "")

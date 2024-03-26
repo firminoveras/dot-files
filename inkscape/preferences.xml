@@ -118,8 +118,8 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="491.569555087359"
-         height="498.81932055857"
+         width="231.308891716904"
+         height="124.892015832616"
          ry="0" />
       <eventcontext
          id="3dbox"
@@ -157,8 +157,8 @@
          end="0"
          start="0"
          usecurrent="1"
-         rx="216.349174920029"
-         ry="216.349174920032" />
+         rx="271.978605976259"
+         ry="271.978605976259" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -317,7 +317,7 @@
        font_sample="AaBbCcIiPpQq12369$€¢?.;/()"
        show_sample_in_list="1"
        use_svg2="1"
-       style="line-height:1.25;font-family:sans-serif;font-size:40px;text-anchor:middle;text-align:center"
+       style="line-height:1.25;font-family:sans-serif;font-size:85.33333333px;text-anchor:middle;text-align:center"
        selcue="1"
        align_mode="1" />
     <eventcontext
@@ -581,7 +581,7 @@
        id="toolbox" />
     <group
        id="fillstroke"
-       page="1" />
+       page="2" />
     <group
        id="filtereffects" />
     <group
@@ -1094,10 +1094,10 @@
      org.inkscape.template.other.unit="px" />
   <group
      id="desktop"
-     style="fill:#0a9fd6;-inkscape-font-specification:Bungee;font-family:Bungee;font-size:5.33333333px;paint-order:fill markers stroke;letter-spacing:-0.36px;stop-color:#000000;stroke-linejoin:round;text-anchor:middle;text-align:center;stroke-width:0.75590551;word-spacing:0px;stroke:#ffffff;stroke-dasharray:0.75590552, 0.75590552">
+     style="fill:none;-inkscape-font-specification:Bungee;font-family:Bungee;font-size:53.33333333px;letter-spacing:-0.36px;stop-color:#000000;stroke-linejoin:round;text-anchor:middle;text-align:center;stroke-width:7.874;word-spacing:0px;stroke:#ffffff;stroke-linecap:round;paint-order:stroke fill markers">
     <group
-       width="740"
-       height="1060"
+       width="1908"
+       height="1028"
        x="0"
        y="0"
        maximized="1"
@@ -1129,7 +1129,7 @@
        icononly="1"
        small="0"
        iconsize="16"
-       width="32">
+       width="46">
       <group
          id="buttons"
          showPages="1"
@@ -1222,8 +1222,8 @@
   <group
      id="theme"
      defaultPreferDarkTheme="1"
-     defaultIconTheme="Papirus-Dark"
-     defaultGtkTheme="Catppuccin-Frappe-Standard-Maroon-Dark"
+     defaultIconTheme="Tela-circle-black"
+     defaultGtkTheme="adw-gtk3-dark"
      narrowSpinButton="1"
      preferDarkTheme="1"
      darkTheme="1"

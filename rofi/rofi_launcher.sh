@@ -2,4 +2,4 @@
 
 rofi \
     -show drun \
-    -theme /home/firmino/.config/waybar/style/rofi/rofi.rasi
+    -theme ./rofi.rasi

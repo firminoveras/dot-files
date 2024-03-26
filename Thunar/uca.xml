@@ -25,15 +25,4 @@
 	<other-files/>
 	<text-files/>
 </action>
-<action>
-	<icon>livewallpaper</icon>
-	<name>Definir como Wallpaper</name>
-	<submenu></submenu>
-	<unique-id>1694050660686763-1</unique-id>
-	<command>swww img %f --transition-type random</command>
-	<description>Definir como Wallpaper</description>
-	<range>*</range>
-	<patterns>*</patterns>
-	<image-files/>
-</action>
 </actions>
