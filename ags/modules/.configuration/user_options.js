@@ -16,13 +16,23 @@ let configOptions = {
         'durationSmall': 110,
         'durationLarge': 180,
     },
+    'appearance': {
+        'keyboardUseFlag': false, // Use flag emoji instead of abbreviation letters
+    },
     'apps': {
+        'bluetooth': "blueberry",
         'imageViewer': "loupe",
-        'terminal': "kitty", // This is only for shell actions
+        'network': "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center wifi",
+        'settings': "XDG_CURRENT_DESKTOP=\"gnome\" gnome-control-center wifi",
+        'taskManager': "gnome-system-monitor",
+        'terminal': "foot", // This is only for shell actions
     },
     'battery': {
         'low': 20,
         'critical': 10,
+        'warnLevels': [20, 15, 5],
+        'warnTitles': ["Low battery", "Very low battery", 'Critical Battery'],
+        'warnMessages': ["Plug in the charger", "You there?", 'PLUG THE CHARGER ALREADY'],
     },
     'music': {
         'preferredPlayer': "plasma-browser-integration",
@@ -31,7 +41,7 @@ let configOptions = {
         'layout': "qwerty_full", // See modules/onscreenkeyboard/onscreenkeyboard.js for available layouts
     },
     'overview': {
-        'scale': 0.14, // Relative to screen size
+        'scale': 0.18, // Relative to screen size
         'numOfRows': 2,
         'numOfCols': 5,
         'wsNumScale': 0.09,
@@ -60,7 +70,7 @@ let configOptions = {
         'city': "",
     },
     'workspaces': {
-        'shown': 5,
+        'shown': 10,
     },
     // Longer stuff
     'icons': {
