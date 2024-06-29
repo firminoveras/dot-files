@@ -3,7 +3,7 @@ import GtkSource from "gi://GtkSource?version=3.0";
 import App from 'resource:///com/github/Aylur/ags/app.js';
 import Widget from 'resource:///com/github/Aylur/ags/widget.js';
 import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
-const { Box, Button, Label, Icon, Scrollable } = Widget;
+const { Box, Button, Label, Icon, Scrollable, Stack } = Widget;
 const { execAsync, exec } = Utils;
 import { MaterialIcon } from '../../.commonwidgets/materialicon.js';
 import md2pango from '../../.miscutils/md2pango.js';
@@ -39,12 +39,9 @@ function substituteLang(str) {
         { from: 'javascript', to: 'js' },
         { from: 'bash', to: 'sh' },
     ];
-
     for (const { from, to } of subs) {
-        if (from === str)
-            return to;
+        if (from === str) return to;
     }
-
     return str;
 }
 
@@ -75,9 +72,9 @@ const TextBlock = (content = '') => Label({
     label: content,
 });
 
-Utils.execAsync(['bash', '-c', `rm ${LATEX_DIR}/*`])
+Utils.execAsync(['bash', '-c', `rm -rf ${LATEX_DIR}`])
     .then(() => Utils.execAsync(['bash', '-c', `mkdir -p ${LATEX_DIR}`]))
-    .catch(() => {  });
+    .catch(print);
 const Latex = (content = '') => {
     const latexViewArea = Box({
         // vscroll: 'never',
@@ -105,7 +102,8 @@ const Latex = (content = '') => {
                 // You can add this line in the middle for debugging: echo "$text" > ${filePath}.tmp
                 const renderScript = `#!/usr/bin/env bash
 text=$(cat ${filePath} | sed 's/$/ \\\\\\\\/g' | sed 's/&=/=/g')
-LaTeX -headless -input="$text" -output=${outFilePath} -textsize=${fontSize * 1.1} -padding=0 -maxwidth=${latexViewArea.get_allocated_width() * 0.85}
+cd /opt/MicroTeX
+./LaTeX -headless -input="$text" -output=${outFilePath} -textsize=${fontSize * 1.1} -padding=0 -maxwidth=${latexViewArea.get_allocated_width() * 0.85} > /dev/null 2>&1
 sed -i 's/fill="rgb(0%, 0%, 0%)"/style="fill:#000000"/g' ${outFilePath}
 sed -i 's/stroke="rgb(0%, 0%, 0%)"/stroke="${darkMode.value ? '#ffffff' : '#000000'}"/g' ${outFilePath}
 `;
@@ -286,7 +284,25 @@ const MessageContent = (content) => {
 }
 
 export const ChatMessage = (message, modelName = 'Model') => {
+    const TextSkeleton = (extraClassName = '') => Box({
+        className: `sidebar-chat-message-skeletonline ${extraClassName}`,
+    })
     const messageContentBox = MessageContent(message.content);
+    const messageLoadingSkeleton = Box({
+        vertical: true,
+        className: 'spacing-v-5',
+        children: Array.from({ length: 3 }, (_, id) => TextSkeleton(`sidebar-chat-message-skeletonline-offset${id}`)),
+    })
+    const messageArea = Stack({
+        homogeneous: message.role !== 'user',
+        transition: 'crossfade',
+        transitionDuration: userOptions.animations.durationLarge,
+        children: {
+            'thinking': messageLoadingSkeleton,
+            'message': messageContentBox,
+        },
+        shown: message.thinking ? 'thinking' : 'message',
+    });
     const thisMessage = Box({
         className: 'sidebar-chat-message',
         homogeneous: true,
@@ -302,11 +318,15 @@ export const ChatMessage = (message, modelName = 'Model') => {
                         useMarkup: true,
                         label: (message.role == 'user' ? USERNAME : modelName),
                     }),
-                    messageContentBox,
+                    Box({
+                        homogeneous: true,
+                        className: 'sidebar-chat-messagearea',
+                        children: [messageArea]
+                    })
                 ],
                 setup: (self) => self
                     .hook(message, (self, isThinking) => {
-                        messageContentBox.toggleClassName('thinking', message.thinking);
+                        messageArea.shown = message.thinking ? 'thinking' : 'message';
                     }, 'notify::thinking')
                     .hook(message, (self) => { // Message update
                         messageContentBox.attribute.fullUpdate(messageContentBox, message.content, message.role != 'user');

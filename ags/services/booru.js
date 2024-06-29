@@ -3,8 +3,13 @@ import * as Utils from 'resource:///com/github/Aylur/ags/utils.js';
 
 const APISERVICES = {
     'yandere': {
+        name: 'yande.re',
         endpoint: 'https://yande.re/post.json',
-    }
+    },
+    'konachan': {
+        name: 'Konachan',
+        endpoint: 'https://konachan.net/post.json',
+    },
 }
 
 const getWorkingImageSauce = (url) => {
@@ -33,7 +38,7 @@ function paramStringFromObj(params) {
 class BooruService extends Service {
     _baseUrl = 'https://yande.re/post.json';
     _mode = 'yandere';
-    _nsfw = userOptions.sidebar.imageAllowNsfw;
+    _nsfw = userOptions.sidebar.image.allowNsfw;
     _responses = [];
     _queries = [];
 
@@ -43,6 +48,8 @@ class BooruService extends Service {
             'clear': [],
             'newResponse': ['int'],
             'updateResponse': ['int'],
+        }, {
+            'nsfw': ['boolean'],
         });
     }
 
@@ -58,36 +65,44 @@ class BooruService extends Service {
     }
 
     get nsfw() { return this._nsfw }
-    set nsfw(value) { this._nsfw = value; }
+    set nsfw(value) { this._nsfw = value; this.notify('nsfw'); }
 
     get mode() { return this._mode }
     set mode(value) {
         this._mode = value;
         this._baseUrl = APISERVICES[this._mode].endpoint;
     }
+    get providerName() {
+        return APISERVICES[this._mode].name;
+    }
     get queries() { return this._queries }
     get responses() { return this._responses }
 
     async fetch(msg) {
         // Init
-        const userArgs = `${msg}${this._nsfw ? '' : ' rating:safe'}`.split(/\s+/);
+        const userArgs = `${msg}${this._nsfw || !msg.includes('safe') ? '' : ' rating:safe'}`.split(/\s+/);
 
         let taglist = [];
         let page = 1;
         // Construct body/headers
         for (let i = 0; i < userArgs.length; i++) {
             const thisArg = userArgs[i].trim();
-            if (thisArg.length == 0 || thisArg == '.' || thisArg == '*') continue;
-            else if(!isNaN(thisArg)) page = parseInt(thisArg);
+            if (thisArg.length == 0 || thisArg == '.' || thisArg.includes('*')) continue;
+            else if (!isNaN(thisArg)) page = parseInt(thisArg);
             else taglist.push(thisArg);
         }
         const newMessageId = this._queries.length;
-        this._queries.push(taglist.length == 0 ? ['*', `${page}`] : [...taglist, `${page}`]);
+        this._queries.push({
+            providerName: APISERVICES[this._mode].name,
+            taglist: taglist.length == 0 ? ['*', `${page}`] : [...taglist, `${page}`],
+            realTagList: taglist,
+            page: page,
+        });
         this.emit('newResponse', newMessageId);
         const params = {
             'tags': taglist.join('+'),
             'page': `${page}`,
-            'limit': `${userOptions.sidebar.imageBooruCount}`,
+            'limit': `${userOptions.sidebar.image.batchCount}`,
         };
         const paramString = paramStringFromObj(params);
         // Fetch
@@ -97,16 +112,20 @@ class BooruService extends Service {
             headers: APISERVICES[this._mode].headers,
         };
         let status = 0;
+        // console.log(`${APISERVICES[this._mode].endpoint}?${paramString}`);
+
         Utils.fetch(`${APISERVICES[this._mode].endpoint}?${paramString}`, options)
             .then(result => {
                 status = result.status;
                 return result.text();
             })
             .then((dataString) => { // Store interesting stuff and emit
+                // console.log(dataString);
                 const parsedData = JSON.parse(dataString);
                 // console.log(parsedData)
-                this._responses.push(parsedData.map(obj => {
+                this._responses[newMessageId] = parsedData.map(obj => {
                     return {
+                        aspect_ratio: obj.width / obj.height,
                         id: obj.id,
                         tags: obj.tags,
                         md5: obj.md5,
@@ -122,7 +141,7 @@ class BooruService extends Service {
                         file_height: obj.file_height,
                         source: getWorkingImageSauce(obj.source),
                     }
-                }));
+                });
                 this.emit('updateResponse', newMessageId);
             })
             .catch(print);
