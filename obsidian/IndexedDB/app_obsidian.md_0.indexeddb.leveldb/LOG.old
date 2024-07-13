@@ -1,12 +1,3 @@
-2024/06/22-13:39:34.243 9b5 Reusing MANIFEST /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
-2024/06/22-13:39:34.244 9b5 Recovering log #4
-2024/06/22-13:39:34.299 9b5 Reusing old log /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000004.log 
-2024/06/22-14:04:23.000 a14 Level-0 table #8: started
-2024/06/22-14:04:23.040 a14 Level-0 table #8: 1443017 bytes OK
-2024/06/22-14:04:23.049 a14 Delete type=0 #4
-2024/06/22-14:05:43.895 9b5 Compacting 1@1 + 1@2 files
-2024/06/22-14:05:43.943 9b5 Generated table #9@1: 518 keys, 52164 bytes
-2024/06/22-14:05:43.943 9b5 Compacted 1@1 + 1@2 files => 52164 bytes
-2024/06/22-14:05:43.946 9b5 compacted to: files[ 0 0 1 0 0 0 0 ]
-2024/06/22-14:05:43.946 9b5 Delete type=2 #5
-2024/06/22-14:05:43.946 9b5 Delete type=2 #8
+2024/06/29-14:53:28.254 3b4ae2 Reusing MANIFEST /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
+2024/06/29-14:53:28.254 3b4ae2 Recovering log #7
+2024/06/29-14:53:28.262 3b4ae2 Reusing old log /home/firmino/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000007.log 

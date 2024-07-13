@@ -12,6 +12,16 @@ const userConfigOptions = {
             'prevTab': "Ctrl+Page_Up",
         },
     },
+    'workspaces':{
+        'shown': 5
+    },
+    'overview': {
+        'scale': 0.12, // Relative to screen size
+        'numOfRows': 1,
+        'numOfCols': 5,
+        'wsNumScale': 0.09,
+        'wsNumMarginScale': 0.07,
+    },
 }
 
 export default userConfigOptions;

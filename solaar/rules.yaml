@@ -2,12 +2,12 @@
 ---
 - Key: [Forward Button, pressed]
 - KeyPress:
-  - [Super_L, Up]
+  - [Control_L, Super_L, Left]
   - click
 ...
 ---
 - Key: [Back Button, pressed]
 - KeyPress:
-  - [Super_L, Down]
+  - [Control_L, Super_L, Right]
   - click
 ...
