@@ -22,6 +22,10 @@ const userConfigOptions = {
         'wsNumScale': 0.09,
         'wsNumMarginScale': 0.07,
     },
+    'weather': {
+        'city': "imaculada",
+        'preferredUnit': "C", // Either C or F
+    },
 }
 
 export default userConfigOptions;

@@ -28,3 +28,9 @@ Dependência:
 	localização: caminho
 	frase: scribus
 
+A Extensão "Formula (typst)" falhou ao carregar porqueuma dependência não foi encontrada.
+Dependência:
+	tipo: executable
+	localização: caminho
+	frase: typst
+

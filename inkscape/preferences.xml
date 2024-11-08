@@ -118,9 +118,9 @@
          id="rect"
          style="fill:blue;"
          usecurrent="1"
-         width="2.65920276641831"
-         height="17.896899414064"
-         ry="0" />
+         width="801.128896156757"
+         height="329.401070311594"
+         ry="15.1435169220965" />
       <eventcontext
          id="3dbox"
          style="stroke:none;stroke-linejoin:round;"
@@ -154,11 +154,12 @@
       <eventcontext
          id="arc"
          style="fill:red;"
-         end="0"
-         start="0"
+         end="26.2065618551545"
+         start="27.195599882236"
          usecurrent="1"
-         rx="18.2476890744189"
-         ry="9.01598081814035" />
+         rx="72.2314308947301"
+         ry="72.2314308947475"
+         arc_type="1" />
       <eventcontext
          id="star"
          magnitude="5"
@@ -308,7 +309,7 @@
        id="lpetool"
        mode="drag"
        style="fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;"
-       unit="px"
+       unit="mm"
        show_bbox="1" />
     <eventcontext
        id="text"
@@ -335,8 +336,8 @@
        live_outline="1"
        live_objects="1"
        show_helperpath="0"
-       x="16.3807640225313"
-       y="14.0995140225313"
+       x="1665.0132893946"
+       y="-100.571984019797"
        edit_clipping_paths="0"
        edit_masks="0" />
     <eventcontext
@@ -528,7 +529,7 @@
   </group>
   <group
      id="colorselector"
-     page="RGB"
+     page="HSL"
      switcher="1">
     <group
        id="RGB"
@@ -629,7 +630,7 @@
          value="layer" />
       <group
          id="defaultdpi"
-         value="53.9991035461426" />
+         value="63" />
     </group>
     <group
        id="save_as"
@@ -652,7 +653,7 @@
     <group
        id="import"
        enable_preview="1"
-       path="/home/firmino/Documentos/HINE/"
+       path="/home/firmino/Downloads/"
        ask="0"
        ask_svg="1"
        link="embed"
@@ -1000,7 +1001,7 @@
     <group
        id="snapping"
        snap-global-toggle="1"
-       snap-bbox="1"
+       snap-bbox="0"
        snap-bbox-edge="1"
        snap-bbox-corner="1"
        snap-bbox-edge-midpoint="1"
@@ -1052,7 +1053,7 @@
   <group
      id="extensions"
      org.inkscape.output.png.inkscape.png_bitdepth="100"
-     org.inkscape.output.png.inkscape.png_compression="0"
+     org.inkscape.output.png.inkscape.png_compression="6"
      org.inkscape.output.png.inkscape.png_antialias="2"
      org.inkscape.effect.filter.ColorDropShadow.type="outer"
      org.inkscape.effect.filter.ColorDropShadow.__live_effect__="0"
@@ -1097,9 +1098,9 @@
      org.inkscape.template.other.unit="px" />
   <group
      id="desktop"
-     style="fill:#000000;-inkscape-font-specification:Inter;font-family:Inter;font-size:53.33333333px;letter-spacing:-0.36px;stop-color:#000000;stroke-linejoin:round;text-anchor:middle;text-align:center;word-spacing:0px;paint-order:stroke fill markers;stroke-width:2.00000126;stroke-linecap:round;-inkscape-stroke:none">
+     style="fill:#69cdd3;-inkscape-font-specification:Inter;font-family:Inter;font-size:53.33333333px;letter-spacing:-0.36px;stop-color:#000000;stroke-linejoin:round;text-anchor:middle;text-align:center;word-spacing:0px;paint-order:stroke fill markers;stroke-linecap:round;stroke-width:10">
     <group
-       width="949"
+       width="1908"
        height="1035"
        x="0"
        y="0"
@@ -1255,4 +1256,10 @@
   <group
      id="gradient-edit"
      stoplist="1" />
+  <group
+     id="color_scales"
+     wheel_vis_hsl="1" />
+  <group
+     id="pattern-edit"
+     currentSet="0" />
 </inkscape>
