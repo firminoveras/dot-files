@@ -314,20 +314,13 @@ $bar_ws_width_focus_active: 2.045rem;
 
 .segment-container-power {
     @include full-rounding;
-}
-
-.segment-container-power>*:first-child {
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
+    background-color: $layer0;
+    margin: 2px 0;
+    padding: 0 0.237rem;
 }
 
 .segment-container-power>* {
     padding: 0 0.682rem;
-}
-
-.segment-container-power>*:last-child {
-    border-top-right-radius: 9999px;
-    border-bottom-right-radius: 9999px;
 }
 
 .segment-btn-power{
@@ -335,22 +328,23 @@ $bar_ws_width_focus_active: 2.045rem;
     background-color: $layer2;
     font-size: 9px;
     margin: 0.237rem 0;
+    border-radius: 9999px;
 }
 
 .segment-btn-power:focus,
 .segment-btn-power:hover {
-    background-color: $layer0Hover;
+    background-color: $layer2;
 }
 
 .segment-btn-power-enabled {
-    background-color: $layer2Hover;
-    color: $onSurface;
+    background-color: $workspaceLayer3;
+    color: $layer0;
 }
 
 .segment-btn-power-enabled:hover,
 .segment-btn-power-enabled:focus {
-    background-color: $layer0Hover;
-    color: $onSurface;
+    background-color: $workspaceLayer3;
+    color: $layer0;
 }
 
 // End Firmino Veras Tweaks

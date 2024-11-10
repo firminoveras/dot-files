@@ -131,7 +131,7 @@ const CpuPower = () => ConfigPowerSelection({
     ],
     initIndex: 1,
     onChange: (value, name) => {
-        if(value == 0){ Utils.execAsync(`cpupower-gui pr Eco`).catch(print) }
+        if(value == 0){ Utils.execAsync(`cpupower-gui pr Eco"`).catch(print) }
         if(value == 1){ Utils.execAsync(`cpupower-gui -b`).catch(print) }
         if(value == 2){ Utils.execAsync(`cpupower-gui pr Performance`).catch(print) }
     },
