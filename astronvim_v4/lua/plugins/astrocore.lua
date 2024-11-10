@@ -1,5 +1,3 @@
-if true then return {} end -- WARN: REMOVE THIS LINE TO ACTIVATE THIS FILE
-
 -- AstroCore provides a central place to modify mappings, vim options, autocommands, and more!
 -- Configuration documentation can be found with `:h astrocore`
 -- NOTE: We highly recommend setting up the Lua Language Server (`:LspInstall lua_ls`)
@@ -47,6 +45,18 @@ return {
         -- second key is the lefthand side of the map
 
         -- navigate buffer tabs
+        ["<A-1>"] = { function() require("astrocore.buffer").nav_to(1) end, desc = "Navigate to buffer 1" },
+        ["<A-2>"] = { function() require("astrocore.buffer").nav_to(2) end, desc = "Navigate to buffer 2" },
+        ["<A-3>"] = { function() require("astrocore.buffer").nav_to(3) end, desc = "Navigate to buffer 3" },
+        ["<A-4>"] = { function() require("astrocore.buffer").nav_to(4) end, desc = "Navigate to buffer 4" },
+        ["<A-5>"] = { function() require("astrocore.buffer").nav_to(5) end, desc = "Navigate to buffer 5" },
+        ["<A-6>"] = { function() require("astrocore.buffer").nav_to(6) end, desc = "Navigate to buffer 6" },
+        ["<A-7>"] = { function() require("astrocore.buffer").nav_to(7) end, desc = "Navigate to buffer 7" },
+        ["<A-8>"] = { function() require("astrocore.buffer").nav_to(8) end, desc = "Navigate to buffer 8" },
+        ["<A-9>"] = { function() require("astrocore.buffer").nav_to(9) end, desc = "Navigate to buffer 9" },
+        ["<A-0>"] = { function() require("astrocore.buffer").nav_to(10) end, desc = "Navigate to buffer 10" },
+        ["<A-Right>"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
+        ["<A-Left>"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
         ["]b"] = { function() require("astrocore.buffer").nav(vim.v.count1) end, desc = "Next buffer" },
         ["[b"] = { function() require("astrocore.buffer").nav(-vim.v.count1) end, desc = "Previous buffer" },
 

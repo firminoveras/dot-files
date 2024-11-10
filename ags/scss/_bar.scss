@@ -36,7 +36,7 @@ $bar_ws_width_focus_active: 2.045rem;
 }
 
 .bar-group-margin {
-    padding: 0.273rem 0rem;
+    padding: 0.273rem;
 }
 
 .bar-group {
@@ -115,7 +115,7 @@ $bar_ws_width_focus_active: 2.045rem;
 }
 
 .bar-ws-occupied {
-    background-color: $layer2;
+    background-color: $layer0;
     color: $workspaceOnLayer2;
 }
 
@@ -133,6 +133,7 @@ $bar_ws_width_focus_active: 2.045rem;
 
 .bar-ws-focus-occupied {
     background-color: $secondaryContainer;
+    color: red;
 }
 
 .bar-clock-box {
@@ -304,6 +305,55 @@ $bar_ws_width_focus_active: 2.045rem;
     transition-duration: 100ms;
     opacity: 0;
 }
+
+// Firmino Veras Tweaks
+
+.bar-music-main {
+    min-width: 40rem;
+}
+
+.segment-container-power {
+    @include full-rounding;
+}
+
+.segment-container-power>*:first-child {
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+}
+
+.segment-container-power>* {
+    padding: 0 0.682rem;
+}
+
+.segment-container-power>*:last-child {
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+}
+
+.segment-btn-power{
+    color: $onSurface;
+    background-color: $layer2;
+    font-size: 9px;
+    margin: 0.237rem 0;
+}
+
+.segment-btn-power:focus,
+.segment-btn-power:hover {
+    background-color: $layer0Hover;
+}
+
+.segment-btn-power-enabled {
+    background-color: $layer2Hover;
+    color: $onSurface;
+}
+
+.segment-btn-power-enabled:hover,
+.segment-btn-power-enabled:focus {
+    background-color: $layer0Hover;
+    color: $onSurface;
+}
+
+// End Firmino Veras Tweaks
 
 .bar-corner-spacing {
     min-width: $rounding_large;

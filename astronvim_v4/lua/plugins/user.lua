@@ -44,8 +44,9 @@ return {
         opts.button("n", "󰋠  Novo", '<cmd>ene <CR>'),
         opts.button("f", "󰺮  Procurar", ':cd $HOME | Telescope find_files<CR>'),
         opts.button("r", "󰋒  Recentes", ':Telescope oldfiles<CR>'),
+        opts.button("s", "󱑢  Sessões", ':lua require("resession").load()<CR>'),
         opts.button("p", "󱑢  Plugins", ':Mason<CR>'),
-        opts.button("c", "󰒔  Configurar", ':cd $HOME/.config/astronvim_v4 | Telescope find_files<CR>'),
+        opts.button("c", "󰒔  Configurações", ':lua require("telescope.builtin").find_files{prompt_title = "Configurações", cwd = vim.fn.stdpath "config", follow = true}<CR>'),
         opts.button("q", "󰅗  Sair", ':qa<CR>'),
       }
 
@@ -88,6 +89,9 @@ return {
       options = {
         separator_style = "slant",
         show_buffer_close_icons = false,
+        numbers = "ordinal",
+        auto_toggle_bufferline = true,
+        always_show_bufferline = false,
       },
     },
   },

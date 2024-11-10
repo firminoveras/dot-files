@@ -121,3 +121,4 @@ export PATH="$PATH:/home/firmino/.local/bin"
 eval "$(starship init zsh)"
 
 HISTFILE=$ZDOTDIR/.zsh_history
+setopt HIST_IGNORE_ALL_DUPS
